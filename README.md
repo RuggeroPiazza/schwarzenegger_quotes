@@ -29,18 +29,21 @@ All the services mentioned are great choices for serverless architectures, where
 
 ## **Step-By-Step Guide**
 
-![alt text](arnoldDiagram.jpg)
+<img src="images/arnoldDiagram.jpg"  width="600" height="300">
 
 1. **Create a table in DynamoDB**\
 Select DynamoDB from the management console and click on the orange "create table" button.\
 Name the table "arnold" (if you choose to name this table differently, please remember to change to the correspondent table's name on the Python script too)\
 Use "movie_title" as partition key and create the table\
 When created, click the "action" dropdown button and select "create item"\
-You can now manually create each table's item:\
+You can now manually create each table's item (refer to the "quotes" document in this repository):\
 First add the movie title as a value.\
 Then click on "add new attribute", select "list" and add all the quotes relative to that specific movie.\
-The following screenshot shows the structure of the items\ 
+The following screenshot shows the structure of the item
+<img src="images/create_item_example.jpg"  width="700" height="200"> 
 
+When all the quotes are added, the attribute "poster_image" can be created with the URL link as value.\
+Before moving to the next step, under the "overview" tab of the table just created, copy the table's ARN and past it on a notepad for later use.\
 
 2. **Create a Lambda function**\
 Select Lambda from the Management Console and click on the orange "create function" button.\
@@ -57,3 +60,56 @@ From the response of the query, we get a list of quotes and the url for the movi
 At this stage, we randomly choose a quote from the list of quote.\
 We then return both the quote (as string) and the image URL (as string) inside the body of a json.dumps\
 Please notice that the header returned is important for the correct interaction with API Gateway.\
+Don't forget to click the "deploy" button to save the changes to the code.\
+
+3. **Set IAM permissions**\
+From the Lambda overview page, select the "Configuration" and on the left-hand side select "permission".\
+Click on the Execution Role and the IAM page will be opened on a new tab.\
+Click on "Add permission" and select "Create Inline Policy" from the drop down options
+In the JSON section of the Create policy section, paste the following policy. Remember to paste the DynamoDB ARN where indicated.
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": "PASTE_HERE_YOUR_TABLE_ARN"
+        }
+    ]
+}
+```
+Click on "review policy", name it and then finally click on "create policy"\
+
+4. **Create a REST API on API Gateway**\
+Select now API Gateway from the console.\
+Click on "Create API" and choose "REST API"\
+Name it and click on "create API"\
+Making sure you have "resources" selected on the left menu and the "/" selected at the top, open the "action" drop-down menu and select "create method".\
+Open the new drop-down menu and sele the GET method. Click then the tick icon to confirm.\
+In the -GET- Setup page that now appears, make sure you click on the "Use Lambda Proxy integration" options and select the lambda function created on step 2.\
+Click save and ok on the next window appearing.\
+From the "actions" drop down menu now, select "Enable CORS". Leave all the option as default and click on "enable CORS...", then click "yes".\
+
+5. **TEST the API**\
+Before continuing, we can test the API to make sure we are getting the correct response body from the Lambda function.\
+From the -GET- Method execution page, click on the "test" button.\
+Click on the blue "test" button and you should get a status 200, a response body made of aa quote and the image URL from the Database, as shown in the following screenshot.
+
+<img src="images/response_body.jpg"  width="400" height="200">
+
+6. **Deploy the API**\
+We can now deploy the API: from the "actions" menu select "Deploy API".\
+Select "New Stage" and name the deployment stage (i.e. "dev" or "test"), then click to "deploy".\
+Don't forget to copy the invocation URL that now appears at the top and save it on a notepad.\
+
+7. **Deploy the front end on Amplify**
+to complete

@@ -107,10 +107,25 @@ Click on the blue "test" button and you should get a status 200, a response body
 <p align="center">
 <img src="images/response_body.jpg"  width="700" height="200">
 </p>
+
 6. **Deploy the API**\
 We can now deploy the API: from the "actions" menu select "Deploy API".\
 Select "New Stage" and name the deployment stage (i.e. "dev" or "test"), then click to "deploy".\
 Don't forget to copy the invocation URL that now appears at the top and save it on a notepad.\
 
-7. **Deploy the front end on Amplify**
-to complete
+7. **Deploy the front end on Amplify**\
+Review the files inside the folder "app" in this repository.\
+You will find an index.html with a simple front page for your application,\
+a "js" folder for theJS scripts and a "css" folder for the styling.\
+Go in the js folder and open the "scripts" file with your favourite IDE.\
+Retrieve di invoke URL previously saved and past it inside the fetch() function.\
+Now create a zip file of the whole "app" folder. This .zip file will be the one to be uploaded on Aws Amplify.\
+
+Go to Amplify and fromthe "New App" drop-down menu, select "host web app".\
+Select "deploy without Git provider"\
+Name the app and the environment, then drag the .zip file you just created in the "drag & drop" area or browse to the file location\
+Save and deploy.\
+
+Congratulations!! You have succefully deployed a web application.
+Please feel free to leave a feedback or to let me know about ay issues or mistakes in the repository.
+

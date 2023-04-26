@@ -28,9 +28,9 @@ On top of having great performance, it has full compatibility with other AWS ser
 All the services mentioned are great choices for serverless architectures, where you want to build something without having to worry about the underlying infrastructure of the services you are using. 
 
 ## **Step-By-Step Guide**
-
-<img src="images/arnoldDiagram.jpg"  width="600" height="300">
-
+<p align="center">
+<img src="images/arnoldDiagram.jpg" width="600" height="280">
+</p>
 1. **Create a table in DynamoDB**\
 Select DynamoDB from the management console and click on the orange "create table" button.\
 Name the table "arnold" (if you choose to name this table differently, please remember to change to the correspondent table's name on the Python script too)\
@@ -40,8 +40,9 @@ You can now manually create each table's item (refer to the "quotes" document in
 First add the movie title as a value.\
 Then click on "add new attribute", select "list" and add all the quotes relative to that specific movie.\
 The following screenshot shows the structure of the item
+<p align="center">
 <img src="images/create_item_example.jpg"  width="700" height="200"> 
-
+</p>
 When all the quotes are added, the attribute "poster_image" can be created with the URL link as value.\
 Before moving to the next step, under the "overview" tab of the table just created, copy the table's ARN and past it on a notepad for later use.\
 
@@ -103,9 +104,9 @@ From the "actions" drop down menu now, select "Enable CORS". Leave all the optio
 Before continuing, we can test the API to make sure we are getting the correct response body from the Lambda function.\
 From the -GET- Method execution page, click on the "test" button.\
 Click on the blue "test" button and you should get a status 200, a response body made of aa quote and the image URL from the Database, as shown in the following screenshot.
-
-<img src="images/response_body.jpg"  width="400" height="200">
-
+<p align="center">
+<img src="images/response_body.jpg"  width="700" height="200">
+</p>
 6. **Deploy the API**\
 We can now deploy the API: from the "actions" menu select "Deploy API".\
 Select "New Stage" and name the deployment stage (i.e. "dev" or "test"), then click to "deploy".\

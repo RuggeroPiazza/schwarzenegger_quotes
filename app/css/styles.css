@@ -1,26 +1,30 @@
 h1 {
   color: #FFFFFF;
   font-family: system-ui;
-margin-left: 20px;
+  margin-left: 20px;
   }
+
 body {
   background-color: #222629;
   }
+
 h2, h3 {
   color: #86C232;
   font-family: system-ui;
   font-size: 20px;
   margin-left: 20px;
-margin-top: 20px;
+  margin-top: 20px;
   }
+
 p {
   color:#34a2ce;
   font-family: system-ui;
   font-size: 20px;
   margin-left: 20px;
-margin-top: 20px;  
-}
+  margin-top: 20px;  
+  }
+
 .content {
   max-width: 500px;
   margin: auto;
-}
+  }
